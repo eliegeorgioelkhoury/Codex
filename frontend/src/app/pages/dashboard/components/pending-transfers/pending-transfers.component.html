@@ -1,0 +1,20 @@
+<section class="card">
+  <h3>Pending Transfers</h3>
+  <table>
+    <thead><tr><th>Date</th><th>Type</th><th>From/To</th><th>Amount</th><th>Action</th></tr></thead>
+    <tbody>
+      @for (item of transfers; track item.id) {
+        <tr>
+          <td>{{ item.transferDate }}</td>
+          <td>{{ item.transferType }}</td>
+          <td>{{ item.counterpart }}</td>
+          <td>LBP {{ item.amount | number:'1.2-2' }}</td>
+          <td>
+            <button (click)="statusChanged.emit({id: item.id, status: 'ACCEPTED'})">Accept</button>
+            <button class="reject" (click)="statusChanged.emit({id: item.id, status: 'REJECTED'})">Reject</button>
+          </td>
+        </tr>
+      }
+    </tbody>
+  </table>
+</section>

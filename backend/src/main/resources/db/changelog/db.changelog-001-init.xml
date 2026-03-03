@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.25.xsd">
+
+    <changeSet id="001-create-wallet" author="codex">
+        <createTable tableName="wallet">
+            <column name="id" type="BIGINT" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="name" type="VARCHAR(100)">
+                <constraints nullable="false" unique="true"/>
+            </column>
+            <column name="currency" type="VARCHAR(10)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="balance" type="DECIMAL(19,2)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="flag_emoji" type="VARCHAR(20)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="002-create-expense-item" author="codex">
+        <createTable tableName="expense_item">
+            <column name="id" type="BIGINT" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="category" type="VARCHAR(50)">
+                <constraints nullable="false" unique="true"/>
+            </column>
+            <column name="amount" type="DECIMAL(19,2)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="003-create-pending-transfer" author="codex">
+        <createTable tableName="pending_transfer">
+            <column name="id" type="BIGINT" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="transfer_date" type="DATE">
+                <constraints nullable="false"/>
+            </column>
+            <column name="transfer_type" type="VARCHAR(20)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="counterpart" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="amount" type="DECIMAL(19,2)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="status" type="VARCHAR(20)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="004-create-transaction-record" author="codex">
+        <createTable tableName="transaction_record">
+            <column name="id" type="BIGINT" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="transaction_date" type="DATE">
+                <constraints nullable="false"/>
+            </column>
+            <column name="source_wallet" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="destination" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="status" type="VARCHAR(20)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="amount" type="DECIMAL(19,2)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="fees" type="DECIMAL(19,2)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="005-seed-wallet" author="codex">
+        <insert tableName="wallet">
+            <column name="name" value="USD Wallet"/>
+            <column name="currency" value="USD"/>
+            <column name="balance" valueNumeric="1450.50"/>
+            <column name="flag_emoji" value="🇺🇸"/>
+        </insert>
+        <insert tableName="wallet">
+            <column name="name" value="LBP Wallet"/>
+            <column name="currency" value="LBP"/>
+            <column name="balance" valueNumeric="8637417.72"/>
+            <column name="flag_emoji" value="🇱🇧"/>
+        </insert>
+    </changeSet>
+
+    <changeSet id="006-seed-expenses" author="codex">
+        <insert tableName="expense_item"><column name="category" value="OUTGOING_TRANSFERS"/><column name="amount" valueNumeric="1340000"/></insert>
+        <insert tableName="expense_item"><column name="category" value="E_SERVICES"/><column name="amount" valueNumeric="100000"/></insert>
+        <insert tableName="expense_item"><column name="category" value="QR_CODE_PAYMENT"/><column name="amount" valueNumeric="8900000"/></insert>
+        <insert tableName="expense_item"><column name="category" value="CASH_OUT"/><column name="amount" valueNumeric="900000"/></insert>
+        <insert tableName="expense_item"><column name="category" value="OTHERS"/><column name="amount" valueNumeric="400000"/></insert>
+    </changeSet>
+
+    <changeSet id="007-seed-pending-transfer" author="codex">
+        <insert tableName="pending_transfer"><column name="transfer_date" valueDate="2025-03-22"/><column name="transfer_type" value="INCOMING"/><column name="counterpart" value="Rabih Sassine"/><column name="amount" valueNumeric="2599"/><column name="status" value="PENDING"/></insert>
+        <insert tableName="pending_transfer"><column name="transfer_date" valueDate="2025-03-21"/><column name="transfer_type" value="OUTGOING"/><column name="counterpart" value="Rabih Sassine"/><column name="amount" valueNumeric="2599"/><column name="status" value="PENDING"/></insert>
+        <insert tableName="pending_transfer"><column name="transfer_date" valueDate="2025-03-20"/><column name="transfer_type" value="INCOMING"/><column name="counterpart" value="Rabih Sassine"/><column name="amount" valueNumeric="2599"/><column name="status" value="PENDING"/></insert>
+    </changeSet>
+
+    <changeSet id="008-seed-transactions" author="codex">
+        <insert tableName="transaction_record"><column name="transaction_date" valueDate="2025-03-22"/><column name="source_wallet" value="LBP Wallet"/><column name="destination" value="Rabih Sassine"/><column name="status" value="COMPLETED"/><column name="amount" valueNumeric="2599"/><column name="fees" valueNumeric="9"/></insert>
+        <insert tableName="transaction_record"><column name="transaction_date" valueDate="2025-03-22"/><column name="source_wallet" value="LBP Wallet"/><column name="destination" value="Rabih Sassine"/><column name="status" value="COMPLETED"/><column name="amount" valueNumeric="2599"/><column name="fees" valueNumeric="9"/></insert>
+        <insert tableName="transaction_record"><column name="transaction_date" valueDate="2025-03-22"/><column name="source_wallet" value="LBP Wallet"/><column name="destination" value="Rabih Sassine"/><column name="status" value="COMPLETED"/><column name="amount" valueNumeric="-2599"/><column name="fees" valueNumeric="9"/></insert>
+    </changeSet>
+
+</databaseChangeLog>
