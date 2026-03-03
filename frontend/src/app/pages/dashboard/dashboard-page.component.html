@@ -1,0 +1,20 @@
+<div class="layout">
+  <app-sidebar></app-sidebar>
+
+  <main class="content" *ngIf="dashboard as data">
+    <p class="breadcrumb">Dashboard</p>
+    <h1>Total available amount</h1>
+    <h2>$ {{ data.totalAvailableAmount | number:'1.2-2' }}</h2>
+
+    <h3>Overview</h3>
+    <app-wallet-overview [wallets]="data.wallets"></app-wallet-overview>
+
+    <section class="card">
+      <h3>My Wallet Expenses</h3>
+      <app-expenses-chart [expenses]="data.expenses"></app-expenses-chart>
+    </section>
+
+    <app-pending-transfers [transfers]="data.pendingTransfers" (statusChanged)="onTransferStatusChange($event)"></app-pending-transfers>
+    <app-transactions-table [transactions]="data.transactions"></app-transactions-table>
+  </main>
+</div>

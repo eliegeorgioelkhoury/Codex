@@ -1,0 +1,4 @@
+.card { background: #fff; border: 1px solid #eceff4; border-radius: 12px; padding: 16px; }
+table { width: 100%; border-collapse: collapse; font-size: 13px; }
+th, td { padding: 10px; border-bottom: 1px solid #f0f2f7; text-align: left; }
+.negative { color: #ef4444; }

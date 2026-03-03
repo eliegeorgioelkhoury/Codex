@@ -1,0 +1,8 @@
+<div class="wallets">
+  @for (wallet of wallets; track wallet.name) {
+    <article>
+      <div>{{ wallet.flagEmoji }} {{ wallet.name }}</div>
+      <strong>{{ wallet.currency }} {{ wallet.balance | number:'1.2-2' }}</strong>
+    </article>
+  }
+</div>

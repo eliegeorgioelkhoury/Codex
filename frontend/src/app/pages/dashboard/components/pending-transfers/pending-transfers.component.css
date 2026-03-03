@@ -1,0 +1,5 @@
+.card { background: #fff; border: 1px solid #eceff4; border-radius: 12px; padding: 16px; }
+table { width: 100%; border-collapse: collapse; font-size: 13px; }
+th, td { padding: 10px; border-bottom: 1px solid #f0f2f7; text-align: left; }
+button { border: none; background: #3453f3; color: #fff; padding: 6px 10px; border-radius: 6px; margin-right: 6px; }
+button.reject { background: #ef4444; }
